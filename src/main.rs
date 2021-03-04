@@ -252,17 +252,19 @@ use std::io::{self, Write};
 fn main() -> Result<(), Error>   {
 
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:80,y:50,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
+
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:160,y:100,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:240,y:200,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
-    let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:320,y:200,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
+    // Works partially OK!! horizontal axis gets double lines every N pixels... vertical axis is PERFECT no matter the resize.
+    // let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:320,y:200,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
     // WORKS OK !!!
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:400,y:300,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
     // WORKS KO !!! every 4 pixels, there's a double width pixel.
-    //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:640,y:480,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
+    let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:640,y:480,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
     let original_x = config.selected_resolution.x.clone();
     let original_y = config.selected_resolution.y.clone();
