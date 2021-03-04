@@ -264,15 +264,13 @@ fn main() -> Result<(), Error>   {
     // WORKS KO !!! every 4 pixels, there's a double width pixel.
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:640,y:480,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
-    let mut c:Canvas = Canvas { ..Default::default() };
+    let original_x = config.selected_resolution.x.clone();
+    let original_y = config.selected_resolution.y.clone();
 
     let mut previous_mouse_x:u16=0;
     let mut previous_mouse_y:u16=0;
 
     config.palette.build("256");
-
-    //let mut fg_index_color=0x00;
-    //let mut bg_index_color=0x0F;
 
     let mut input = WinitInputHelper::new();
 
@@ -406,7 +404,7 @@ fn main() -> Result<(), Error>   {
             if input.window_resized() != None
             {
                 let window_size = window.inner_size();
-                window.set_title(format!("[{} x {}]", window_size.width, window_size.height).as_str());
+                window.set_title(format!("orig:[{},{}], resized:[{} x {}]", original_x, original_y, window_size.width, window_size.height).as_str());
             }
 
             if(needs_redraw)
@@ -437,75 +435,3 @@ fn main() -> Result<(), Error>   {
         print!("D"); io::stdout().flush();
     }
 }
-
-/*
-Hi all, I'm a somewhat newbie in Rust (with a historical background in many other languages around, being C the one I started with decades ago). As of today my main
-everyday language is Swift.
-
-The thing is I have some 2D/retro ideas to develop in Rust, and I've come accross pixels (among the rest of the pixel related troupe of crates).
-What is the problem I've detected? Somewhat strange: Some pixels are painted "double width/height" when multiples of certain value (different values depending on the
-selected window resolution).
-
-I've simplified my (aesthetically) faulty program into an easy git project for someone to test: https://github.com/friguron/report_rust
-
-As of now I've downgraded it to a main loop and a mouse silly painter... The mouse drawer part was optional but I left it there because of the potential it adds for debugging.
-I've also rawn this pattern to test it without mouse interference, just cold put pixel:
-
-1010101010101010101
-0101010101010101010
-1010101010101010101
-0101010101010101010
-1010101010101010101
-0101010101010101010
-1010101010101010101
-0101010101010101010
-
-What do I tipically get?  Different groups of problems:
-
-a) Resolutions that show faulty pixel accuracy when set up with no need to resize the window to trigger the faulty render (of course, when you resize these windows, you get the faulty effect, with bigger size)
-typically, 640 x 480 (and bigger sizes) trigger this mode.
-b) Resolutions that show perfect pixel accuracy when set up, but show faulty behaviour when resizing the window. 320 x 200 falls into this cattegory.
-c) Resolutions that show perfect pixel accuracy when set up AND when resizing their window (160 x 100, for example). No matter how big you resize the window, you get proportional pixels, unlike in the other cases.
-
-In the initial lines of the main function of my code you can find my resolution setup function...
-The one that started to smell fishy (and behave not as intended) was a "simple" 640 x 480 one, where every 4 pixels, (column or row, it doesn't matter),
-a "doubled" pixel line is drawn...
-If you enlarge a 640 x 480 window you can see the effect with more detail.
-
-If you play with 320 x 200 otoh, you find it works PIXEL PERFECT when the window is not resized, just at boot time, but it's faulty on the X axis if you
-enlarge the window (the Y axis shows perfectly uniform pixel heights).
-
-If you play with 160 x 100 (or around these small values), you get pixel perfect resolutions at boot time, AND when you resize the window
-
-
-
-So:
-
-1.- Is it me? I can assume I'm newbie not only in Rust but in all the crates involved (Winit, Pixels, wgpu, etc...)
-and maybe I've forgotten something in the init part of Pixels for the expected pixel perfect behaviour?
-2.- Is it my Mac ? (I can't test in on windows/linux as of now)
-3.- Is it Pixels? Can it be some underlying crate instead? (wgpu being the main candidate?)
-
-My main concern, specially if I don't resize my working window, is that some resolutions are shown perfetly, others don't. Why that?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-I'm using MacOS Mojave, and I want to create
-
-
-
-
-
-
-*/
