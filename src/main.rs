@@ -260,6 +260,9 @@ fn main() -> Result<(), Error>   {
     // Works partially OK!! horizontal axis gets double lines every N pixels... vertical axis is PERFECT no matter the resize.
     // let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:320,y:200,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
+    // Works partially OK!! vertical axis gets MANY double lines every N pixels, just some lines show a single line... horizontal axis is PERFECT no matter the resized window.
+    //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:200,y:320,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
+
     // WORKS OK !!!
     //let mut config:DPConfig = DPConfig {selected_resolution:Resolution{x:400,y:300,n_colors:256,desc:"MCGA".to_string()}, ..Default::default() };
 
